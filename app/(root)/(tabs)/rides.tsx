@@ -1,7 +1,7 @@
 import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Rides = (): void => {
+const Rides = () => {
   return (
     <SafeAreaView>
       <Text>Rides</Text>
