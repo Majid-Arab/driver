@@ -6,9 +6,8 @@ import { Link } from "expo-router";
 import { useState } from "react";
 import { Image, Text, View, ScrollView } from "react-native";
 
-const SingUp = () => {
+const SignIn = () => {
   const [form, setForm] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -21,19 +20,10 @@ const SingUp = () => {
         <View className="relative w-full h-[250px]">
           <Image source={images.signUpCar} className="z-0 w-full h-[250px]" />
           <Text className="text-2xl text-black font-JakartaSemiBold absolute left-5 bottom-5 ">
-            Create Your Account
+            Welcome 👋
           </Text>
         </View>
         <View className="p-5">
-          <InputField
-            label="Name"
-            placeholder="Enter your name"
-            icon={icons.person}
-            value={form.name}
-            onChange={(value) =>
-              setForm({ ...form, name: value.nativeEvent.text })
-            }
-          />
           <InputField
             label="Email"
             placeholder="Enter your email"
@@ -61,11 +51,11 @@ const SingUp = () => {
           <OAuth />
 
           <Link
-            href="/(auth)/sing-in"
+            href="/(auth)/sign-up"
             className="text-lg text-general-200 text-center mt-10"
           >
-            <Text>Already have an account? </Text>
-            <Text className="text-primary-500">Log In</Text>
+            <Text>Don't have an account? </Text>
+            <Text className="text-primary-500">Sign Up</Text>
           </Link>
 
           {/* Verification Modal */}
@@ -75,4 +65,4 @@ const SingUp = () => {
   );
 };
 
-export default SingUp;
+export default SignIn;
