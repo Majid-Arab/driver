@@ -4,7 +4,7 @@ import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constants";
 import { Link, router } from "expo-router";
 import { useState } from "react";
-import { Image, Text, View, ScrollView } from "react-native";
+import { Image, Text, View, ScrollView, Alert } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import ReactNativeModal from "react-native-modal";
 
@@ -18,7 +18,7 @@ const SignUp = () => {
   });
 
   const [verification, setVerification] = useState({
-    state: "pending",
+    state: "default",
     error: "",
     code: "",
   });
@@ -41,9 +41,7 @@ const SignUp = () => {
         state: "pending",
       });
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2));
+      Alert.alert("Error", err.errors[0].longMessage);
     }
   };
 
@@ -137,9 +135,35 @@ const SignUp = () => {
               setVerification({ ...verification, state: "success" });
             }}
           >
-            <View>
-              <Text>Verification</Text>
-              <Text>We've sent a verification code to {form.email}</Text>
+            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+              <Text className="text-2xl font-JakartaBold mb-2">
+                Verification
+              </Text>
+              <Text className="font-Jakarta mb-5">
+                We've sent a verification code to {form.email}
+              </Text>
+              <InputField
+                label="Code"
+                icon={icons.lock}
+                placeholder="12345"
+                value={verification.code}
+                keyboardType="numeric"
+                onChangeText={(code) => {
+                  setVerification({ ...verification, code });
+                }}
+              />
+
+              {verification.error && (
+                <Text className="text-red-500 text-sm mt-1">
+                  {verification.error}
+                </Text>
+              )}
+
+              <CustomButton
+                title="Verify Email"
+                onPress={onPressVerify}
+                className="mt-5 bg-success-500"
+              />
             </View>
           </ReactNativeModal>
 
