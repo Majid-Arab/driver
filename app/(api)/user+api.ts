@@ -12,17 +12,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const resolve = await sql`
-    INSERT INTO users (name, email, clerk_id)
+    const response = await sql`
+      INSERT INTO users (name, email, clerk_id)
 
-    VALUE = {
-        ${name},
-        ${email},
-        ${clerkId}
-    }
-  `;
+      VALUE {
+          ${name},
+          ${email},
+          ${clerkId}
+      }
+    `;
 
-    return new Response(JSON.stringify(resolve), { status: 201 });
+    return new Response(JSON.stringify({ data: response }), { status: 201 });
   } catch (error) {
     console.log(error);
     return Response.json({ error: error }, { status: 500 });
