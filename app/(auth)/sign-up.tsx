@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Image, Text, View, ScrollView, Alert } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import ReactNativeModal from "react-native-modal";
+import { fetchAPI } from "@/lib/fetch";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -58,7 +59,14 @@ const SignUp = () => {
       });
 
       if (completeSignUp.status === "complete") {
-        // Todo Create a Database user!
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: completeSignUp.createdUserId,
+          }),
+        });
 
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({ ...verification, state: "success" });
