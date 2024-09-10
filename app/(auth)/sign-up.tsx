@@ -10,6 +10,7 @@ import ReactNativeModal from "react-native-modal";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -22,6 +23,7 @@ const SignUp = () => {
     error: "",
     code: "",
   });
+  3;
 
   const onSignUpPress = async () => {
     if (!isLoaded) {
@@ -132,7 +134,9 @@ const SignUp = () => {
           <ReactNativeModal
             isVisible={verification.state === "pending"}
             onModalHide={() => {
-              setVerification({ ...verification, state: "success" });
+              if (verification.state === "success") {
+                setShowSuccessModal(true);
+              }
             }}
           >
             <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
@@ -167,7 +171,7 @@ const SignUp = () => {
             </View>
           </ReactNativeModal>
 
-          <ReactNativeModal isVisible={verification.state === "success"}>
+          <ReactNativeModal isVisible={showSuccessModal}>
             <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
               <Image
                 source={images.check}
@@ -184,7 +188,10 @@ const SignUp = () => {
 
               <CustomButton
                 title="Browse Home"
-                onPress={() => router.replace("/(root)/(tabs)/home")}
+                onPress={() => {
+                  setShowSuccessModal(false);
+                  router.push("/(root)/(tabs)/home");
+                }}
                 className="mt-5"
               />
             </View>
