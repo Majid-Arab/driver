@@ -5,17 +5,20 @@ import * as Location from "expo-location";
 import { icons, images } from "@/constants";
 import { useLocationStore } from "@/store";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
+import { Link, router, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Button,
   FlatList,
   Image,
+  Pressable,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 const recentRides = [
   {
@@ -131,8 +134,16 @@ export default function Home() {
 
   const [hadPermission, setHadPermission] = useState(false);
 
-  const handSingOut = () => {};
-  const handleDestinationPress = () => {};
+  const handleSingOut = () => {};
+  const handleDestinationPress = (location: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => {
+    setDestinationLocation(location);
+
+    router.push("/(root)/find-ride");
+  };
 
   useEffect(() => {
     const requestionPermission = async () => {
@@ -152,7 +163,7 @@ export default function Home() {
       setUserLocation({
         // latitude: location.coords.latitude,
         // longitude: location.coords.longitude,
-        latitude: 37.78852,
+        latitude: 37.78825,
         longitude: -122.4324,
         address: `${address[0].name}, ${address[0].region}`,
       });
@@ -160,7 +171,6 @@ export default function Home() {
 
     requestionPermission();
   }, []);
-
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
@@ -198,7 +208,7 @@ export default function Home() {
                 👋
               </Text>
               <TouchableOpacity
-                onPress={handSingOut}
+                onPress={handleSingOut}
                 className="flex justify-center items-center w-10 h-10 rounded-full bg-white"
               >
                 <Image source={icons.out} className="w-4 h-4" />
@@ -210,6 +220,12 @@ export default function Home() {
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDestinationPress}
             />
+            <Stack>
+              <Stack.Screen
+                name="find-ride"
+                component={FindRide}
+              ></Stack.Screen>
+            </Stack>
 
             <>
               <Text className="text-xl font-JakartaBold mt-5 mb-3 ">
