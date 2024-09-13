@@ -8,7 +8,7 @@ import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 
 const drivers = [
   {
-    driver_id: 1,
+    driver_id: "1",
     first_name: "James",
     last_name: "Wilson",
     profile_image_url:
@@ -19,7 +19,7 @@ const drivers = [
     rating: "4.80",
   },
   {
-    driver_id: 2,
+    driver_id: "2",
     first_name: "David",
     last_name: "Brown",
     profile_image_url:
@@ -30,7 +30,7 @@ const drivers = [
     rating: "4.60",
   },
   {
-    driver_id: 3,
+    driver_id: "3",
     first_name: "Michael",
     last_name: "Johnson",
     profile_image_url:
@@ -41,7 +41,7 @@ const drivers = [
     rating: "4.70",
   },
   {
-    driver_id: 4,
+    driver_id: "4",
     first_name: "Robert",
     last_name: "Green",
     profile_image_url:
@@ -72,6 +72,7 @@ const Map = () => {
   });
 
   useEffect(() => {
+    setDrivers(drivers);
     if (Array.isArray(drivers)) {
       if (!userLatitude || !userLongitude) return;
 
