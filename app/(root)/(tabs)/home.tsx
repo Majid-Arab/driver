@@ -220,12 +220,11 @@ export default function Home() {
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDestinationPress}
             />
-            <Stack>
-              <Stack.Screen
-                name="find-ride"
-                component={FindRide}
-              ></Stack.Screen>
-            </Stack>
+            <Link href={{ pathname: "/find-ride" }} asChild>
+              <Pressable>
+                <Text>Go to Find Ride</Text>
+              </Pressable>
+            </Link>
 
             <>
               <Text className="text-xl font-JakartaBold mt-5 mb-3 ">
