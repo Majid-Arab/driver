@@ -1,9 +1,29 @@
-import { Image, Text, View } from "react-native";
+import { Image, Linking, Text, View } from "react-native";
 import CustomButton from "./CustomButton";
 import { icons } from "@/constants";
+import { useOAuth } from "@clerk/clerk-expo";
+import React, { useCallback } from "react";
 
 const OAuth = () => {
-  const handleGoogleSignIn = async () => {};
+  
+  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' })
+
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } = await startOAuthFlow({
+        redirectUrl: Linking.createURL('/dashboard', { scheme: 'myapp' }),
+      })
+
+      if (createdSessionId) {
+        setActive!({ session: createdSessionId })
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error('OAuth error', err)
+    }
+  }, [])
+  
   return (
     <View>
       <View className="flex flex-row justify-center items-center mt-4 gap-x-3">
