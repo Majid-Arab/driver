@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import { Linking } from "react-native";
 
 export const tokenCache = {
   async getToken(key: string) {
@@ -24,3 +25,39 @@ export const tokenCache = {
     }
   },
 };
+
+export const googleAuth = async (startOAuthFlow: any)=>{
+  try {
+    const { createdSessionId, signIn, signUp, setActive } = await startOAuthFlow({
+      redirectUrl: Linking.createURL('/(root)/(tabs)/home', { scheme: 'myapp' }),
+    })
+
+    if (createdSessionId) {
+      if(setActive) {
+        await setActive!({session: createdSessionId})
+
+        if(signUp.createdUserId) {
+          await fetchAPI('/(api)/user',{
+            method: "POST",
+            body: JSON.stringify({
+              name: `${signUp.firstName} ${signUp.lastName}`,
+              email: signUp.email,
+              clerkId: signUp.createdUserId,
+            })
+          })
+        }
+        return {
+          success: true,
+          code: 'success',
+          message: 'You have successfully authenticated'
+        }
+      }
+    } 
+    return {
+      success: false,
+      message: "An error occurred"
+    }
+  } catch (error) {
+    
+  }
+}
