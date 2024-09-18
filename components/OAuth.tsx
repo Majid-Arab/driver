@@ -5,25 +5,25 @@ import { useOAuth } from "@clerk/clerk-expo";
 import React, { useCallback } from "react";
 
 const OAuth = () => {
-  
-  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' })
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
-  const handleGoogleSignIn = useCallback(async () => {
-    try {
-      const { createdSessionId, signIn, signUp, setActive } = await startOAuthFlow({
-        redirectUrl: Linking.createURL('/dashboard', { scheme: 'myapp' }),
-      })
+  // const handleGoogleSignIn = useCallback(async () => {
+  //   try {
+  //     const { createdSessionId, signIn, signUp, setActive } =
+  //       await startOAuthFlow({
+  //         // redirectUrl: Linking.createURL('/dashboard', { scheme: 'myapp' }),
+  //       });
 
-      if (createdSessionId) {
-        setActive!({ session: createdSessionId })
-      } else {
-        // Use signIn or signUp for next steps such as MFA
-      }
-    } catch (err) {
-      console.error('OAuth error', err)
-    }
-  }, [])
-  
+  //     if (createdSessionId) {
+  //       setActive!({ session: createdSessionId });
+  //     } else {
+  //       // Use signIn or signUp for next steps such as MFA
+  //     }
+  //   } catch (err) {
+  //     console.error("OAuth error", err);
+  //   }
+  // }, []);
+
   return (
     <View>
       <View className="flex flex-row justify-center items-center mt-4 gap-x-3">
@@ -43,7 +43,7 @@ const OAuth = () => {
         )}
         bgVariant="outline"
         textVariant="primary"
-        onPress={handleGoogleSignIn}
+        // onPress={handleGoogleSignIn}
       />
     </View>
   );
