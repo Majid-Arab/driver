@@ -114,6 +114,15 @@ export default function Home() {
               >
                 <Image source={icons.out} className="w-4 h-4" />
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleSingOut}
+                className="flex justify-center items-center w-10 h-10 rounded-full bg-white"
+              ></TouchableOpacity>
+              <Link href={{ pathname: "/(auth)/driver-welcome" }} asChild>
+                <Pressable>
+                  <Image source={icons.selectedMarker} className="w-8 h-8" />
+                </Pressable>
+              </Link>
             </View>
 
             <GoogleTextInput
