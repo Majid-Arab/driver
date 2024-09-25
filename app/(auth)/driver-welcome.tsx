@@ -10,7 +10,7 @@ const DriverOnboarding = () => {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex h-full justify-between bg-white">
+    <SafeAreaView className="flex h-full items-center justify-between bg-white">
       <TouchableOpacity
         onPress={() => {
           router.replace("/(auth)/sign-up");
@@ -22,7 +22,7 @@ const DriverOnboarding = () => {
       <View className="flex items-center justify-center p-5">
         <Image
           source={images.onboarding2}
-          className="w-full h-[300px]"
+          className="h-[300px]"
           resizeMode="contain"
         />
         <View className="flex flex-row items-center justify-center">
@@ -34,7 +34,7 @@ const DriverOnboarding = () => {
       <CustomButton
         title="Continue"
         onPress={() => router.replace("/(auth)/sign-up")}
-        className="w-10/12 mt-10 mx-auto"
+        className="w-10/12 mt-10"
       />
     </SafeAreaView>
   );
