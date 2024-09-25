@@ -3,17 +3,14 @@ import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, Image } from "react-native";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Swiper from "react-native-swiper";
 import CustomButton from "@/components/CustomButton";
 import { images } from "@/constants";
 
 const DriverOnboarding = () => {
-  const swiperRef = useRef<Swiper>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-between bg-white">
+    <SafeAreaView className="flex h-full justify-between bg-white">
       <TouchableOpacity
         onPress={() => {
           router.replace("/(auth)/sign-up");
@@ -37,7 +34,7 @@ const DriverOnboarding = () => {
       <CustomButton
         title="Continue"
         onPress={() => router.replace("/(auth)/sign-up")}
-        className="w-10/12 mt-10"
+        className="w-10/12 mt-10 mx-auto"
       />
     </SafeAreaView>
   );
