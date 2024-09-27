@@ -33,7 +33,7 @@ const DriverOnboarding = () => {
       </View>
       <CustomButton
         title="Continue"
-        onPress={() => router.replace("/(auth)/sign-up")}
+        onPress={() => router.replace("/(auth)/driver-form")}
         className="w-10/12 mt-10"
       />
     </SafeAreaView>
