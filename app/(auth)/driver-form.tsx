@@ -2,33 +2,25 @@ import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constants";
-import { Link, router } from "expo-router";
 import { useState } from "react";
 import { Image, Text, View, ScrollView, Alert } from "react-native";
-import { useSignUp } from "@clerk/clerk-expo";
-import ReactNativeModal from "react-native-modal";
+import { useUser } from "@clerk/clerk-expo";
 import { fetchAPI } from "@/lib/fetch";
 
 const DriverForm = () => {
-  const { isLoaded, signUp, setActive } = useSignUp();
+  const { isLoaded, user } = useUser();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [form, setForm] = useState({
     age: "",
     gender: "",
     DOB: "",
-    image: "",
     brand: "",
     registrationPlate: "",
     vehicleModel: "",
+    drivingLicenseImage: "",
+    vehicleImage: "",
   });
-
-  const [verification, setVerification] = useState({
-    state: "default",
-    error: "",
-    code: "",
-  });
-  3;
 
   const onDriverFormPress = async () => {
     if (!isLoaded) {
@@ -36,64 +28,32 @@ const DriverForm = () => {
     }
 
     try {
-      await signUp.create({
-        age: form.age,
-        password: form.gender,
-        birthDate: form.DOB,
-        image: form.image,
-        vehicleBrand: form.brand,
-        registrationPlate: form.registrationPlate,
-        verhicleModel: form.vehicleModel,
+      // Replace with your API URL that saves driver data in Neon
+      const response = await fetchAPI("/api/driver", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          age: form.age,
+          gender: form.gender,
+          DOB: form.DOB,
+          brand: form.brand,
+          registrationPlate: form.registrationPlate,
+          vehicleModel: form.vehicleModel,
+          drivingLicenseImage: form.drivingLicenseImage, // Assuming these are base64 or URLs
+          vehicleImage: form.vehicleImage,
+        }),
       });
 
-      await signUp.prepareEmailAddressVerification({
-        strategy: "email_code",
-      });
-
-      setVerification({
-        ...verification,
-        state: "pending",
-      });
-    } catch (err: any) {
-      Alert.alert("Error", err.errors[0].longMessage);
-    }
-  };
-
-  const onPressVerify = async () => {
-    if (!isLoaded) {
-      return;
-    }
-
-    try {
-      const completeDriverForm = await signUp.attemptEmailAddressVerification({
-        code: verification.code,
-      });
-
-      if (completeDriverForm.status === "complete") {
-        await fetchAPI("/(api)/user", {
-          method: "POST",
-          body: JSON.stringify({
-            age: form.age,
-            brithDay: form.DOB,
-            clerkId: completeDriverForm.createdUserId,
-          }),
-        });
-
-        await setActive({ session: completeDriverForm.createdSessionId });
-        setVerification({ ...verification, state: "success" });
+      if (response.ok) {
+        setShowSuccessModal(true);
       } else {
-        setVerification({
-          ...verification,
-          error: "Verification failed",
-          state: "failed",
-        });
+        Alert.alert("Error", "Something went wrong!");
       }
-    } catch (err: any) {
-      setVerification({
-        ...verification,
-        error: err.errors[0].longMessage,
-        state: "failed",
-      });
+    } catch (err) {
+      console.error(err);
+      Alert.alert("Error", "Failed to submit data");
     }
   };
 
@@ -106,115 +66,74 @@ const DriverForm = () => {
             Please fill in the details
           </Text>
         </View>
+
         <View className="p-5">
           <InputField
-            label="Name"
-            placeholder="Enter your name"
+            label="Age"
+            placeholder="Enter your age"
             icon={icons.person}
             value={form.age}
             onChange={(value) =>
               setForm({ ...form, age: value.nativeEvent.text })
             }
           />
+
           <InputField
-            label="Email"
-            placeholder="Enter your email"
-            icon={icons.person}
+            label="Date of Birth"
+            placeholder="Enter your date of birth"
+            // icon={icons.calendar}
             value={form.DOB}
             onChange={(value) =>
               setForm({ ...form, DOB: value.nativeEvent.text })
             }
           />
+
           <InputField
-            label="Password"
-            placeholder="Enter your password"
-            icon={icons.person}
+            label="Vehicle Brand"
+            placeholder="Enter your vehicle brand"
+            // icon={icons.car}
             value={form.brand}
             onChange={(value) =>
               setForm({ ...form, brand: value.nativeEvent.text })
             }
           />
+
+          <InputField
+            label="Registration Plate"
+            placeholder="Enter your registration plate"
+            // icon={icons.car}
+            value={form.registrationPlate}
+            onChange={(value) =>
+              setForm({
+                ...form,
+                registrationPlate: value.nativeEvent.text,
+              })
+            }
+          />
+
+          <InputField
+            label="Vehicle Model"
+            placeholder="Enter your vehicle model year"
+            // icon={icons.car}
+            value={form.vehicleModel}
+            onChange={(value) =>
+              setForm({
+                ...form,
+                vehicleModel: value.nativeEvent.text,
+              })
+            }
+          />
+
+          {/* You can add image upload logic here for driving license and vehicle image */}
+          {/* For now, assume base64 or URLs are manually provided */}
+
           <CustomButton
-            title="Sign Up"
+            title="Submit"
             onPress={onDriverFormPress}
             className="mt-6"
           />
 
           <OAuth />
-
-          <Link
-            href="/(auth)/sign-in"
-            className="text-lg text-general-200 text-center mt-10"
-          >
-            <Text>Already have an account? </Text>
-            <Text className="text-primary-500">Log In</Text>
-          </Link>
-
-          <ReactNativeModal
-            isVisible={verification.state === "pending"}
-            onModalHide={() => {
-              if (verification.state === "success") {
-                setShowSuccessModal(true);
-              }
-            }}
-          >
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
-              <Text className="text-2xl font-JakartaBold mb-2">
-                Verification
-              </Text>
-              <Text className="font-Jakarta mb-5">
-                We've sent a verification code to {form.email}
-              </Text>
-              <InputField
-                label="Code"
-                icon={icons.lock}
-                placeholder="12345"
-                value={verification.code}
-                keyboardType="numeric"
-                onChangeText={(code) => {
-                  setVerification({ ...verification, code });
-                }}
-              />
-
-              {verification.error && (
-                <Text className="text-red-500 text-sm mt-1">
-                  {verification.error}
-                </Text>
-              )}
-
-              <CustomButton
-                title="Verify Email"
-                onPress={onPressVerify}
-                className="mt-5 bg-success-500"
-              />
-            </View>
-          </ReactNativeModal>
-
-          <ReactNativeModal isVisible={showSuccessModal}>
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
-              <Image
-                source={images.check}
-                className="w-[110px] h-[110px] mx-auto my-5"
-              />
-
-              <Text className="text-3xl font-JakartaBold text-center">
-                Verified
-              </Text>
-
-              <Text className="text-base text-gray-400 font-Jakarta text-center mt-2">
-                You have successfully verified your account.
-              </Text>
-
-              <CustomButton
-                title="Browse Home"
-                onPress={() => {
-                  setShowSuccessModal(false);
-                  router.push("/(root)/(tabs)/home");
-                }}
-                className="mt-5"
-              />
-            </View>
-          </ReactNativeModal>
         </View>
       </View>
     </ScrollView>
