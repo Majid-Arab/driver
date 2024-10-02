@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Inter;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 100%;
+  height: 80px;
+}
+
+img {
+  width: 200px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+
+  list-style-type: none;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+}
+button {
+  background-color: #0ebab1;
+  color: #ffffff;
+  width: 200px;
+  height: 60px;
+  border-radius: 50px;
+  border: none;
+  font-size: 25.19px;
+  font-weight: 600px;
+}
+
+button a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.main {
+  position: absolute;
+  height: 700px;
+  background-color: #0ebab1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+}
+.main h1 {
+  margin-top: 50px;
+  font-size: 65px;
+  font-weight: 700;
+  font-family: Inter;
+  text-align: center;
+}
+.main h1 span {
+  margin-top: 30px;
+  color: #ffffff;
+}
+
+.gol {
+  position: absolute;
+  width: 267px;
+  height: 534px;
+  /* top: 510px; */
+  /* left: -74px; */
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.gol1 {
+  right: 0;
+  bottom: 10px;
+}
+
+.gol2 {
+  top: 10px;
+  left: 0;
+  /* left: -74px; */
+}
+
+/* 
+.box-3 {
+  position: absolute;
+  left: 1075px;
+  opacity: 0.1;
+} */
+
+.box-4 {
+  height: 640px;
+  width: 1050px;
+  margin-bottom: -100px;
+  z-index: 2;
+}
+
+.box-4 img {
+  width: 100%;
+  border: 3px solid;
+  color: #ffffff;
+  border-radius: 19.31px;
+}

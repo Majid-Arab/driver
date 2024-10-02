@@ -94,6 +94,18 @@ export const onboarding = [
     image: images.onboarding3,
   },
 ];
+
+export interface FormState {
+  age: string;
+  gender: string;
+  DOB: string;
+  brand: string;
+  registrationPlate: string;
+  vehicleModel: string;
+  drivingLicenseImage: string;
+  vehicleImage: string;
+}
+
 export const driverOnboarding = [
   {
     id: 1,
