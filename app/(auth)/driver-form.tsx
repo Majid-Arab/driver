@@ -58,7 +58,7 @@ const DriverForm = () => {
           brand: form.brand,
           registrationPlate: form.registrationPlate,
           vehicleModel: form.vehicleModel,
-          drivingLicenseImage: form.drivingLicenseImage, // Assuming these are base64 or URLs
+          drivingLicenseImage: form.drivingLicenseImage,
           vehicleImage: form.vehicleImage,
         }),
       });
@@ -92,28 +92,13 @@ const DriverForm = () => {
   };
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  // Function to handle option selection
   const handleOptionPress = (optionValue: string) => {
     setSelectedOption(optionValue);
   };
 
-  // const selectFile = async () => {
-  //   try {
-  //     const file = await DocumentPicker.pick();
-  //     console.log(file);
-  //   } catch (error) {
-  //     if (DocumentPicker.isCancel(error)) {
-  //       console.log("User canceled!", error);
-  //     } else {
-  //       console.log(error);
-  //     }
-  //   }
-  // };
-
   const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -194,10 +179,8 @@ const DriverForm = () => {
       </ScrollView>
 
       <View className="flex-row justify-center gap-5 w-40 mt-10">
-        {/* Render Previous button except on the first step */}
         {!isFirstStep && <CustomButton title="Previous" onPress={goPrevStep} />}
 
-        {/* Render Next or Submit button */}
         <CustomButton
           title={isLastStep ? "Submit" : "Next"}
           onPress={goNextStep}

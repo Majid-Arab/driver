@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 const Layout = () => {
   return (
-    <Stack>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="welcome" options={{ headerShown: false }} />
       <Stack.Screen name="driver-welcome" options={{ headerShown: false }} />
       <Stack.Screen name="sign-up" options={{ headerShown: false }} />

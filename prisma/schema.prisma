@@ -9,15 +9,24 @@ datasource db {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model driver {
-  id                Int      @id @default(autoincrement())
-  user_id           Int?
-  first_name        String   @db.VarChar(50)
-  last_name         String   @db.VarChar(50)
-  profile_image_url String?
-  car_image_url     String?
-  car_seats         Int
-  rating            Decimal? @db.Decimal(3, 2)
-  user              users?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id                   Int      @id @default(autoincrement())
+  user_id              Int?
+  first_name           String   @db.VarChar(50)
+  last_name            String   @db.VarChar(50)
+  age                  String   @db.VarChar(50)
+  gender               String   @db.VarChar(50)
+  dob                  String   @db.VarChar(50)
+  brand                String   @db.VarChar(50)
+  registrationPlate    String   @db.VarChar(50)
+  vehicleModel         String   @db.VarChar(50)
+  cnic_front_image_url String   @db.VarChar(50)
+  cnic_back_image_url  String   @db.VarChar(50)
+  license_image_url    String   @db.VarChar(50)
+  profile_image_url    String?
+  car_image_url        String?
+  car_seats            Int
+  rating               Decimal? @db.Decimal(3, 2)
+  user                 users?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
