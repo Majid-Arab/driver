@@ -1,6 +1,5 @@
 import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
-import OAuth from "@/components/OAuth";
 import { driverOnboarding, FormState } from "@/constants";
 import { useState } from "react";
 import {
@@ -10,10 +9,12 @@ import {
   Alert,
   SafeAreaView,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
 import { fetchAPI } from "@/lib/fetch";
 import { useRouter } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
 
 const DriverForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -96,6 +97,37 @@ const DriverForm = () => {
     setSelectedOption(optionValue);
   };
 
+  // const selectFile = async () => {
+  //   try {
+  //     const file = await DocumentPicker.pick();
+  //     console.log(file);
+  //   } catch (error) {
+  //     if (DocumentPicker.isCancel(error)) {
+  //       console.log("User canceled!", error);
+  //     } else {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
+
+  const [image, setImage] = useState<string | null>(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <SafeAreaView className="flex h-full items-center justify-between bg-white">
       <ScrollView contentContainerStyle={{ padding: 20 }}>
@@ -114,7 +146,7 @@ const DriverForm = () => {
               {item.options?.map((option) => (
                 <TouchableOpacity
                   key={option.value}
-                  onPress={() => handleOptionPress(option.value)} // Set selected option on click
+                  onPress={() => handleOptionPress(option.value)}
                   className={`${
                     selectedOption === option.value
                       ? "border-solid border-2 border-green-500"
@@ -122,6 +154,22 @@ const DriverForm = () => {
                   } flex flex-row mb-5 items-center justify-between py-5 px-3 rounded-xl`}
                 >
                   <Text>{option.label}</Text>
+                </TouchableOpacity>
+              ))}
+              {item.images?.map((image) => (
+                <TouchableOpacity
+                  key={image.key}
+                  onPress={pickImage}
+                  className={`${
+                    selectedOption === image.label
+                      ? "border-solid border-2 border-green-500"
+                      : "bg-white"
+                  } flex flex-row mb-5 items-center justify-center py-5 px-3 rounded-xl`}
+                >
+                  <Text>{image.label}</Text>
+                  {image && (
+                    <Image source={{ uri: image.key }} className="z-0 w-80" />
+                  )}
                 </TouchableOpacity>
               ))}
 

@@ -133,12 +133,17 @@ export const driverOnboarding = [
     title: "Upload Your CNIC Picture",
     key: "images",
     type: "multi-image",
+    images: [
+      { label: "CNIC Front", key: "front" },
+      { label: "CNIC Back", key: "back" },
+    ],
   },
   {
     id: 4,
     title: "Upload Your Picture",
     key: "picture",
     type: "image",
+    images: [{ label: "Your Picture", key: "picture" }],
   },
   {
     id: 5,
