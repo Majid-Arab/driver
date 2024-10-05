@@ -65,6 +65,7 @@ const SignIn = () => {
             placeholder="Enter your password"
             icon={icons.person}
             value={form.password}
+            secureTextEntry={true}
             onChange={(value) =>
               setForm({ ...form, password: value.nativeEvent.text })
             }

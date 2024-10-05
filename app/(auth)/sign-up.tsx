@@ -117,6 +117,7 @@ const SignUp = () => {
           <InputField
             label="Password"
             placeholder="Enter your password"
+            secureTextEntry={true}
             icon={icons.person}
             value={form.password}
             onChange={(value) =>
