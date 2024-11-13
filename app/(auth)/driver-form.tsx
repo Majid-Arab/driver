@@ -23,12 +23,15 @@ const DriverForm = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [form, setForm] = useState<FormState>({
+    vehicle_type: "",
     age: "",
     gender: "",
     DOB: "",
     brand: "",
     registrationPlate: "",
     vehicleModel: "",
+    cnic_back: "",
+    cnic_front: "",
     drivingLicenseImage: "",
     vehicleImage: "",
   });
@@ -76,13 +79,38 @@ const DriverForm = () => {
 
   const isLastStep = currentStep === driverOnboarding.length - 1;
   const isFirstStep = currentStep === 0;
+  // const validateFields = (currentStep: number) => {
+  //   const currentFields = driverOnboarding[currentStep].fields || [];
 
+  //   for (let field of currentFields) {
+  //     if (!form[field.key as keyof FormState]) {
+  //       return false;
+  //     }
+  //   }
+  //   if (
+  //     (currentStep === 0 && !form.vehicle_type) ||
+  //     (currentStep === 3 &&
+  //       (!form.vehicleImage ||
+  //         !form.drivingLicenseImage ||
+  //         !form.cnic_back ||
+  //         !form.cnic_front))
+  //   ) {
+  //     return false;
+  //   }
+
+  //   return true;
+  // };
   const goNextStep = () => {
+    // if (currentStep) {
     if (!isLastStep) {
       setCurrentStep((prev) => prev + 1);
     } else {
-      onDriverFormPress();
+      router.replace("/driverHome");
+      // Alert.alert("Hi");
     }
+    // } else {
+    //   Alert.alert("Validation Error", "Please fill all the required fields.");
+    // }
   };
 
   const goPrevStep = () => {
@@ -114,12 +142,20 @@ const DriverForm = () => {
   };
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-between bg-white">
-      <ScrollView contentContainerStyle={{ padding: 20 }}>
+    <SafeAreaView className="flex h-full items-center bg-white">
+      <ScrollView
+        contentContainerStyle={{
+          padding: 20,
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {driverOnboarding.map((item, index) =>
           index === currentStep ? (
             <View key={item.id} className="w-full">
-              <Text className="text-black text-3xl font-bold mx-10 text-center">
+              <Text className="text-black text-3xl font-bold mx-10 text-center pb-10">
                 {item.title}
               </Text>
               {item.description && (
