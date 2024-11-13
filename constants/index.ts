@@ -96,11 +96,14 @@ export const onboarding = [
 ];
 
 export interface FormState {
+  vehicle_type: string;
   age: string;
   gender: string;
   DOB: string;
   brand: string;
   registrationPlate: string;
+  cnic_front: string;
+  cnic_back: string;
   vehicleModel: string;
   drivingLicenseImage: string;
   vehicleImage: string;
