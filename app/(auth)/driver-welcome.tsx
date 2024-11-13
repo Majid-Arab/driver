@@ -13,7 +13,7 @@ const DriverOnboarding = () => {
     <SafeAreaView className="flex h-full items-center justify-between bg-white">
       <TouchableOpacity
         onPress={() => {
-          router.replace("/(root)/(tabs)/home");
+          router.replace("/(root)/(tabs)/driverHome");
         }}
         className="w-full flex justify-end items-end p-5"
       >
