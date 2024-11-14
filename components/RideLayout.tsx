@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { icons } from "@/constants";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import Map from "./Map";
+import OpenStreetMapMap from "./OpenStreeMap";
 
 const RideLayout = ({
   title,
@@ -16,6 +17,11 @@ const RideLayout = ({
   snapPoints: string[];
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const handleClose = () => {
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.close();
+    }
+  };
   return (
     <GestureHandlerRootView>
       <View className="flex-1 bg-white">
@@ -34,7 +40,8 @@ const RideLayout = ({
               {title || "Go Back"}
             </Text>
           </View>
-          <Map />
+          {/* <Map /> */}
+          <OpenStreetMapMap />
           <BottomSheet
             ref={bottomSheetRef}
             snapPoints={snapPoints || ["40%", "85%"]}

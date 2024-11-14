@@ -21,6 +21,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useFetch } from "@/lib/fetch";
 import { Ride } from "@/types/type";
+import OpenStreetMapMap from "@/components/OpenStreeMap";
 
 export default function Home() {
   const { setUserLocation, setDestinationLocation } = useLocationStore();
@@ -108,21 +109,19 @@ export default function Home() {
                   user?.emailAddresses[0].emailAddress.split("@")[0]} } */}
                 👋
               </Text>
-              <TouchableOpacity
-                onPress={handleSingOut}
-                className="flex justify-center items-center w-10 h-10 rounded-full bg-white"
-              >
-                <Image source={icons.out} className="w-4 h-4" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleSingOut}
-                className="flex justify-center items-center w-10 h-10 rounded-full bg-white"
-              ></TouchableOpacity>
-              <Link href={{ pathname: "/(auth)/driver-welcome" }} asChild>
-                <Pressable>
-                  <Image source={icons.selectedMarker} className="w-8 h-8" />
-                </Pressable>
-              </Link>
+              <View className="flex flex-col">
+                <TouchableOpacity
+                  onPress={handleSingOut}
+                  className="flex justify-center items-center w-10 h-10 rounded-full bg-white"
+                >
+                  <Image source={icons.out} className="w-4 h-4" />
+                </TouchableOpacity>
+                <Link href={{ pathname: "/(auth)/driver-welcome" }} asChild>
+                  <Pressable>
+                    <Image source={icons.selectedMarker} className="w-8 h-8" />
+                  </Pressable>
+                </Link>
+              </View>
             </View>
 
             <GoogleTextInput
@@ -141,7 +140,8 @@ export default function Home() {
                 Your Current Location
               </Text>
               <View className="flex flex-row items-center bg-transparent h-[300px]">
-                <Map />
+                {/* <Map /> */}
+                <OpenStreetMapMap />
               </View>
               <Text className="text-xl font-JakartaBold mt-5 mb-3 ">
                 Recent Rides

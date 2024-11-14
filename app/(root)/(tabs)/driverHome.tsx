@@ -21,6 +21,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useFetch } from "@/lib/fetch";
 import { Ride } from "@/types/type";
+import OpenStreetMapMap from "@/components/OpenStreeMap";
 
 export default function DriverHome() {
   const { setUserLocation, setDestinationLocation } = useLocationStore();
@@ -132,7 +133,8 @@ export default function DriverHome() {
                 Your Current Location
               </Text>
               <View className="flex flex-row items-center bg-transparent h-[300px]">
-                <Map />
+                {/* <Map /> */}
+                <OpenStreetMapMap />
               </View>
               <Text className="text-xl font-JakartaBold mt-5 mb-3 ">
                 Recent Rides
