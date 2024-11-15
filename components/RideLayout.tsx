@@ -45,6 +45,7 @@ const RideLayout = ({
           <BottomSheet
             ref={bottomSheetRef}
             snapPoints={snapPoints || ["40%", "85%"]}
+            enablePanDownToClose={true}
             index={0}
           >
             <BottomSheetView style={{ flex: 1, padding: 20 }}>
