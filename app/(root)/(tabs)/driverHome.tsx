@@ -22,6 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useFetch } from "@/lib/fetch";
 import { Ride } from "@/types/type";
 import OpenStreetMapMap from "@/components/OpenStreeMap";
+import { BarChart } from "react-native-gifted-charts";
 
 export default function DriverHome() {
   const { setUserLocation, setDestinationLocation } = useLocationStore();
@@ -122,11 +123,32 @@ export default function DriverHome() {
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDestinationPress}
             />
-            <Link href={{ pathname: "/find-ride" }} asChild>
-              <Pressable>
-                <Text>Go to Find Ride</Text>
-              </Pressable>
-            </Link>
+            <View className="flex flex-row items-center justify-between gap-5">
+              <Link
+                href={{ pathname: "/find-ride" }}
+                asChild
+                className="flex-1"
+              >
+                <Pressable className="border border-gray-300 rounded-md px-5 py-2 flex items-center justify-between">
+                  <Text>Last Trip</Text>
+                  <Text className="text-3xl font-semibold text-green-600">
+                    $20.22
+                  </Text>
+                </Pressable>
+              </Link>
+              <Link
+                href={{ pathname: "/find-ride" }}
+                asChild
+                className="flex-1"
+              >
+                <Pressable className="border border-gray-500 rounded-md px-5 py-2 flex items-center justify-between">
+                  <Text>Todays Total</Text>
+                  <Text className="text-3xl font-semibold text-green-600">
+                    $20.22
+                  </Text>
+                </Pressable>
+              </Link>
+            </View>
 
             <>
               <Text className="text-xl font-JakartaBold mt-5 mb-3 ">
@@ -135,6 +157,9 @@ export default function DriverHome() {
               <View className="flex flex-row items-center bg-transparent h-[300px]">
                 {/* <Map /> */}
                 <OpenStreetMapMap />
+              </View>
+              <View>
+                <BarChart />
               </View>
               <Text className="text-xl font-JakartaBold mt-5 mb-3 ">
                 Recent Rides
