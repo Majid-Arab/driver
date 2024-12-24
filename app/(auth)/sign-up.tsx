@@ -24,7 +24,6 @@ const SignUp = () => {
     error: "",
     code: "",
   });
-  3;
 
   const onSignUpPress = async () => {
     if (!isLoaded) {
