@@ -1,7 +1,6 @@
 import { icons } from "@/constants";
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, View } from "react-native";
-import { FlipInEasyX } from "react-native-reanimated";
 
 const TabIcon = ({
   source,
@@ -11,7 +10,7 @@ const TabIcon = ({
   focused: boolean;
 }) => (
   <View
-    className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
+    className={`flex justify-center rounded-full ${focused ? "bg-general-300" : ""}`}
   >
     <View
       className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
@@ -28,7 +27,7 @@ const TabIcon = ({
 
 const Layout = () => (
   <Tabs
-    initialRouteName="index"
+    initialRouteName="home"
     screenOptions={{
       tabBarActiveTintColor: "white",
       tabBarInactiveTintColor: "white",
@@ -36,16 +35,15 @@ const Layout = () => (
       tabBarStyle: {
         backgroundColor: "#333333",
         borderRadius: 50,
-        paddingBottom: 0,
-        overflow: "hidden",
+        paddingBottom: 30,
+        // overflow: "hidden",
         marginHorizontal: 20,
         marginBottom: 20,
         height: 78,
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexDirection: "row",
-        position: "absolute",
+        flexDirection: "row", // Horizontal layout for tab items
+        justifyContent: "center", // Center the tab items horizontally
+        alignItems: "center", // Center the tab items vertically
       },
     }}
   >
@@ -83,6 +81,16 @@ const Layout = () => (
       name="profile"
       options={{
         title: "Profile",
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <TabIcon focused={focused} source={icons.profile} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="driverHome"
+      options={{
+        title: "DriverHome",
         headerShown: false,
         tabBarIcon: ({ focused }) => (
           <TabIcon focused={focused} source={icons.profile} />
