@@ -102,7 +102,7 @@ export default function Home() {
         )}
         ListHeaderComponent={() => (
           <>
-            <View className="flex flex-row items-center justify-center my-5">
+            <View className="flex flex-row items-center justify-between my-5">
               <Text className="text-2xl font-JakartaExtraBold capitalize">
                 Welcome{", "}
                 {/* { {user?.firstName ||
