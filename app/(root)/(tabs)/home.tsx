@@ -84,16 +84,16 @@ export default function Home() {
           paddingBottom: 100,
         }}
         ListEmptyComponent={() => (
-          <View>
+          <View className="flex items-center justify-between my-5">
             {!loading ? (
               <>
                 <Image
                   source={images.noResult}
-                  className="w-40 h40"
+                  className="w-40 h-40"
                   alt="No recent rides found"
                   resizeMode="contain"
                 />
-                <Text className="text-sm">No recent rides found</Text>
+                <Text className="text-sm text-center">No recent rides found</Text>
               </>
             ) : (
               <ActivityIndicator size="small" color="#000" />
@@ -102,7 +102,7 @@ export default function Home() {
         )}
         ListHeaderComponent={() => (
           <>
-            <View className="flex flex-row items-center justify-between my-5">
+            <View className="flex flex-row items-center justify-center my-5">
               <Text className="text-2xl font-JakartaExtraBold capitalize">
                 Welcome{", "}
                 {/* { {user?.firstName ||
