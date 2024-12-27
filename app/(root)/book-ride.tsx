@@ -15,7 +15,7 @@ const BookRide = () => {
   const driverDetails = drivers?.filter(
     (driver) => +driver.id === selectedDriver
   )[0];
-
+console.log(driverDetails)
   return (
     <RideLayout title="Book Ride" snapPoints={["65%", "85%"]}>
       <>
@@ -58,7 +58,7 @@ const BookRide = () => {
           <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
             <Text className="text-lg font-JakartaRegular">Pickup Time</Text>
             <Text className="text-lg font-JakartaRegular">
-              {formatTime(parseInt(`${driverDetails.time}`))}
+              {formatTime(parseInt(`${driverDetails?.time}`))}
             </Text>
           </View>
 
