@@ -1,23 +1,28 @@
 import CustomButton from "@/components/CustomButton";
 import DriverCard from "@/components/DriverCard";
 import RideLayout from "@/components/RideLayout";
+import { useFetch } from "@/lib/fetch";
 import { useDriverStore } from "@/store";
+import { Driver } from "@/types/type";
 import { router } from "expo-router";
-import React from "react";
-import { FlatList, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Text, View } from "react-native";
 
 const ConfirmRide = () => {
-  const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
+  const { selectedDriver, setSelectedDriver } = useDriverStore();
+  const { data: drivers, loading } = useFetch<Driver[]>(`/(api)/driver`);
+
+  if (loading) return <Text>Loading...</Text>;
   return (
     <RideLayout title="Confirm Ride" snapPoints={["65%", "85%"]}>
       <FlatList
         data={drivers}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
           <DriverCard
-            selected={selectedDriver!}
-            setSelected={() => setSelectedDriver(Number(item.id)!)}
             item={item}
+            selected={selectedDriver === item.id}
+            setSelected={() => setSelectedDriver(item.id)}
           />
         )}
         ListFooterComponent={() => (
