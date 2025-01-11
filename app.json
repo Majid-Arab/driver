@@ -19,12 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "server",
-      "favicon": "./assets/images/favicon.png"
+      },
+      "package": "com.majidarab12.uber"
     },
     "plugins": [
       [
@@ -38,6 +34,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://uber.com/"
+      },
+      "eas": {
+        "projectId": "6946d5b0-9b15-4e09-ad87-b76a7d2321f0"
+      }
     }
   }
 }
